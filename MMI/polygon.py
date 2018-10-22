@@ -1,4 +1,8 @@
+# install lib: matplotlib
+# install lib: python-tk
+
 import math
+import matplotlib.pyplot as plt
 
 #SPRAWDZIC WYPUKLOSC WIELKATA
 
@@ -14,7 +18,7 @@ def perimeter(x, y):
 def area(x, y):
     ar = 0
     for i in range(len(x) - 1):
-        ar += (y[i + 1]+y[i])*(x[i + 1] - x[i])
+        ar += (y[i + 1] + y[i])*(x[i + 1] - x[i])
     
     return abs(ar / 2)
 
@@ -38,7 +42,8 @@ def rotate_around(x, y, angle, px, py):
         y[i] = py + (x1 - px) * math.sin(angle) + (y[i] - py) * math.cos(angle)
 
 def draw(x, y):
-    pass
+    plt.plot(x, y)
+    plt.draw()
 
 #count = int(input("Number of vertices: "))
 
@@ -69,3 +74,5 @@ print("Area after scaling: {}\n".format(area(x, y)))
 
 
 draw(x, y)
+
+plt.show()
