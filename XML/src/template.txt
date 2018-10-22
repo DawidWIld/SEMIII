@@ -1,0 +1,22 @@
+<incident>
+  <incidentID>{0}</incidentID>
+  <endUser>{1}</endUser>
+  <dateOpened>{2}</dateOpened>
+  <affectedUsers>{3}</affectedUsers>
+  <state>{4}</state>
+  	<category>
+      <mainCategory>{5}</mainCategory>
+      <subcategory>{6}</subcategory>
+  	</category>
+  <priority>
+    <impact>{7}</impact>
+    <urgency>{8}</urgency>
+  </priority>
+  <assignmentGroup>{9}</assignmentGroup>
+  <phoneNumber cc="PL" mobile="true">{10}</phoneNumber>
+  <userCompany comid="{11}"></userCompany>
+  <shortDescription>{12}</shortDescription>
+  <description>{13}</description>
+  <workNotes vis="agentOnly">{14}</workNotes>
+</incident>
+

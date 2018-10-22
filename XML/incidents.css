@@ -1,0 +1,165 @@
+
+  style {
+  	visibility: hidden;
+  }
+  
+  authors {
+    display: block;
+    border: 1px solid;
+  }
+  
+  authors:before {
+  	content: "Authors:";
+  }
+  
+  author {
+    display: list-item;
+    list-style: decimal;
+    margin-left: 20px;
+  }
+  
+  companies {
+  	visibility: hidden;
+  }
+  
+  incident {
+    display: flex;
+    flex-wrap: wrap;
+    background: rgb(220, 220, 220);
+    margin-top: 50px;
+    padding: 20px;
+  }
+  
+  incident *{
+    margin-top: 5px;
+  	border: 1px solid;
+    padding: 5px;
+  }
+  
+  incidentID {
+    flex: 0 0 50%;
+    background: rgb(200,200,200);
+  }
+  
+  incidentID:before {
+  	content: "ID: ";
+    font-weight: bold;
+  }
+  
+  endUser {
+  	flex: 1;
+  }
+  
+  endUser:before {
+  	content: "End user: ";
+    font-weight: bold;
+  }
+  
+  dateOpened {
+    flex: 0 0 50%;
+  }
+  
+  dateOpened:before {
+    content: "Date Opened: ";
+    font-weight: bold;
+  }
+  
+  affectedUsers {
+    flex: 1;
+  }
+  
+  affectedUsers:before {
+    content: "Affected users: ";
+    font-weight: bold;
+  }
+  
+  state {
+    flex: 0 0 50%;
+  }
+  
+  state:before {
+    content: "State: ";
+    font-weight: bold;
+  }
+  
+  category {
+    flex: 30%;
+  }
+  
+  category:before {
+    content: "Category: ";
+    font-weight: bold;
+  }
+  
+  priority {
+    flex: 0 0 30%;
+  }
+  
+  priority:before {
+    content: "Piority: ";
+    font-weight: bold;
+  }
+  
+  assignmentGroup {
+    flex: 0 0 30%;
+  }
+  
+  assignmentGroup:before {
+    content: "Assignment group: ";
+    font-weight: bold;
+  }
+  
+  phoneNumber {
+    flex: 1;
+  }
+  
+  phoneNumber:before {
+    content: "Phone number: ";
+    font-weight: bold;
+  }
+  
+  userCompany:before {
+  	content:  "Company: ";
+    font-weight: bold;
+  }
+  
+  userCompany:after {
+  	content:  attr(comid);
+  }
+  
+  userCompany {
+    flex: 0 0 99%;
+  }
+  
+  shortDescription {
+  	flex: 0 0 99%;
+  }
+  
+  shortDescription:before {
+  	content: "Short description:";
+    display: block;
+    font-weight: bold;
+  }
+  
+  description {
+  	flex: 0 0 99%;
+  }
+  
+  description:before {
+  	content: "Description:";
+    display: block;
+    font-weight: bold;
+  }
+  
+  workNotes {
+  	flex: 0 0 99%;
+    background: yellow;
+  }
+  
+  workNotes:before {
+  	content: "Work notes:";
+    display: block;
+    font-weight: bold;
+  }
+  
+  

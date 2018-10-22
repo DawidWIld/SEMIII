@@ -1,0 +1,33 @@
+<!ELEMENT root (authors, companies, incidents)>
+<!ELEMENT companies (company*)>
+<!ELEMENT company (#PCDATA)>
+<!ATTLIST company id ID #REQUIRED>
+<!ELEMENT incidents (incident*)>
+<!ELEMENT authors (author+)>
+<!ELEMENT author (firstName, lastName, indexNumber)>
+<!ATTLIST author id CDATA #REQUIRED>
+<!ELEMENT firstName (#PCDATA)>
+<!ELEMENT lastName (#PCDATA)>
+<!ELEMENT indexNumber (#PCDATA)>
+<!ELEMENT incident (incidentID, endUser, dateOpened, affectedUsers, state, category, priority, assignmentGroup, phoneNumber, userCompany, shortDescription, description, workNotes)>
+<!ELEMENT incidentID (#PCDATA)>
+<!ELEMENT endUser (#PCDATA)>
+<!ELEMENT dateOpened (#PCDATA)>
+<!ELEMENT affectedUsers (#PCDATA)>
+<!ELEMENT state (#PCDATA)>
+<!ELEMENT category (mainCategory, subcategory)>
+  <!ELEMENT mainCategory (#PCDATA)>
+  <!ELEMENT subcategory (#PCDATA)>
+<!ELEMENT priority (impact, urgency)>
+  <!ELEMENT impact (#PCDATA)>
+  <!ELEMENT urgency (#PCDATA)>
+<!ELEMENT assignmentGroup (#PCDATA)>
+<!ELEMENT phoneNumber (#PCDATA)>
+<!ATTLIST phoneNumber cc CDATA #REQUIRED
+                  mobile CDATA #REQUIRED>
+<!ELEMENT userCompany EMPTY>
+<!ATTLIST userCompany comid IDREF #REQUIRED>
+<!ELEMENT shortDescription (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT workNotes (#PCDATA)>
+<!ATTLIST workNotes vis (agentOnly) #REQUIRED>
