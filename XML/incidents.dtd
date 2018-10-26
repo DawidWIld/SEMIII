@@ -23,11 +23,11 @@
   <!ELEMENT urgency (#PCDATA)>
 <!ELEMENT assignmentGroup (#PCDATA)>
 <!ELEMENT phoneNumber (#PCDATA)>
-<!ATTLIST phoneNumber cc CDATA #REQUIRED
+<!ATTLIST phoneNumber cc (PL|UK|US|DE|FR) #REQUIRED
                   mobile CDATA #REQUIRED>
 <!ELEMENT userCompany EMPTY>
 <!ATTLIST userCompany comid IDREF #REQUIRED>
 <!ELEMENT shortDescription (#PCDATA)>
 <!ELEMENT description (#PCDATA)>
 <!ELEMENT workNotes (#PCDATA)>
-<!ATTLIST workNotes vis (agentOnly) #REQUIRED>
+<!ATTLIST workNotes vis (agentOnly|all) #REQUIRED>
