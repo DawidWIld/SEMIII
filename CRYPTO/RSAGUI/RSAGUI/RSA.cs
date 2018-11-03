@@ -15,20 +15,21 @@ namespace RSAGUI
         }
 
         public static string[] KeyGen(int size)
-        {
-            BigInteger e = 65537, lambda = 1, p = 1, q = 1;
+        {   
+            //e = first half of public key 
+            BigInteger e = 65537, lambda = 1, p = 1, q = 1; 
 
              do
              {
                  p = ParallelPrime.GetPrime();
                  q = ParallelPrime.GetPrime();
-                 lambda = lcm(p - 1, q - 1);
+                 lambda = lcm(p - 1, q - 1);            //lmc - least common multiply
                  //lambda = (p - 1) * (q - 1);
 
              } while (BigInteger.GreatestCommonDivisor(e, lambda) != 1 || BigInteger.Abs(p - q) < BigInteger.Pow(2, size / 2 - 100));
 
-            BigInteger n = p * q;
-            BigInteger d = modInverse(e, lambda);
+            BigInteger n = p * q;                       //half of private/public key
+            BigInteger d = modInverse(e, lambda);       //second half of private key 
 
             return new string[] { n.ToString(), e.ToString(), d.ToString() };
         }

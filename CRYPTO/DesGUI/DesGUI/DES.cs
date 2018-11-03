@@ -138,7 +138,7 @@ namespace DesGUI
             uint[] c = new uint[17];
             uint[] d = new uint[17];
             ulong[] subkeys = new ulong[16];
-            key = Permutate(key, pc1);
+            key = Permutate(key, pc1); // 56bits number
             d[0] = (uint)(key & 0xfffffff);
             c[0] = (uint)((key >> 28) & 0xfffffff);
 
@@ -149,13 +149,13 @@ namespace DesGUI
                 for (int j = 0; j < shifts[i]; j++)
                 {
                     c[i + 1] <<= 1;
-                    c[i + 1] += ((c[i + 1] >> 28) & 1);
+                    c[i + 1] += ((c[i + 1] >> 28) & 1); // rotate left
                     d[i + 1] <<= 1;
                     d[i + 1] += ((d[i + 1] >> 28) & 1);
                 }
-                c[i + 1] &= 0xfffffff;
+                c[i + 1] &= 0xfffffff; // take only first 28bits
                 d[i + 1] &= 0xfffffff;
-                bin(c[i + 1]);
+                //bin(c[i + 1]);
                 subkeys[i] = (ulong)c[i + 1] << 28 | d[i + 1];
                 subkeys[i] = Permutate(subkeys[i], pc2);
             }
