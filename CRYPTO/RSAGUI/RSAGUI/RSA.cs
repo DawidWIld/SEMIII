@@ -39,23 +39,42 @@ namespace RSAGUI
             return (a / BigInteger.GreatestCommonDivisor(a, b)) * b;
         }
 
-        static BigInteger modInverse(BigInteger a, BigInteger n)
+        static BigInteger modInverse(BigInteger value, BigInteger modulo)
         {
-            BigInteger i = n, v = 0, d = 1;
-            while (a > 0)
+            BigInteger left = value;
+            BigInteger right = modulo;
+            BigInteger leftFactor = 0;
+            BigInteger rightFactor = 1;
+            BigInteger u = 1;
+            BigInteger v = 0;
+            BigInteger gcd = 0;
+
+            while (left != 0)
             {
-                BigInteger t = i / a;
-                BigInteger x = a;
-                a = i % x;
-                i = x;
-                x = d;
-                d = v - t * x;
-                v = x;
+                BigInteger q = right / left;
+                BigInteger r = right % left;
+
+                BigInteger m = leftFactor - u * q;
+                BigInteger n = rightFactor - v * q;
+
+                right = left;
+                left = r;
+                leftFactor = u;
+                rightFactor = v;
+                u = m;
+                v = n;
+
+                gcd = right;
             }
-            v %= n;
-            if (v < 0)
-                v = (v + n) % n;
-            return v;
+
+            if (gcd != 1)
+                throw new System.Exception("Not primes!");
+
+            if (leftFactor < 0)
+                leftFactor += modulo;
+
+            return leftFactor % modulo;
         }
     }
+}
 }
