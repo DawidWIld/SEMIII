@@ -56,17 +56,23 @@ def rotate_x(mat, angle):
 def scale(mat, s):
     return mul(mat, [[s,0,0,0],[0,s,0,0],[0,0,s,0],[0,0,0,1]])
 
-fig = plt.figure();
+fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
+
+#Set your values below
+scale_value = 1/10
+angle = -3.14 * 2
+point = [1,1,1]
 
 
 def animate(t):
     mat = ident()
-    mat = scale(mat, 2**(t/100))
-    mat = rotate_z(mat, t/100)
-    mat = rotate_x(mat, t/100)
-    mat = rotate_y(mat, t/100)
-    mat = translate(mat, 1, 1, 1)
+    mat = translate(mat, *point)
+    mat = scale(mat, scale_value**(t/100))
+    mat = rotate_z(mat, t/100 * angle)
+    mat = rotate_x(mat, t/100 * angle)
+    mat = rotate_y(mat, t/100 * angle)
+    mat = translate(mat, *point)
 
     cube_modif = [0] * 8
 
@@ -74,6 +80,11 @@ def animate(t):
         cube_modif[i] = mul(mat, cube[i])
 
     ax.clear()
+    axis_scale = math.sqrt((math.sqrt(point[0]**2 + point[1]**2)**2 + point[2]**2) ) + 2 * scale_value + 1
+    ax.set_xlim(-axis_scale + point[0], axis_scale + point[0])
+    ax.set_ylim(-axis_scale + point[1], axis_scale + point[1])
+    ax.set_zlim(-axis_scale + point[2], axis_scale + point[2])
+
 
     for edge in edges:
         xs = []
@@ -86,14 +97,6 @@ def animate(t):
         ys.append(cube_modif[edge[1]-1][0][1])
         zs.append(cube_modif[edge[1]-1][0][2])
         ax.plot(xs, ys, zs)
-
-    #for i in range(8):
-    #    xs.append(cube_modif[i][0][0])
-    #    ys.append(cube_modif[i][0][1])
-    #    zs.append(cube_modif[i][0][2])
-    
-    
-#    ax.scatter(xs,ys,zs)
 
 ani = animation.FuncAnimation(fig, animate, interval=10, frames=100)
 plt.show();
