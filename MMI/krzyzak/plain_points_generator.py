@@ -19,6 +19,6 @@ while abc[0] == 0 and abc[1] == 0 and abc[2] == 0:
 
 #generating random points that fits the plain
 for i in range (0, number_of_points):
-    point = [random.randint(-100000, 100000), random.randint(-100000, 100000)]          #x an y generated randomly
+    point = [random.randint(-100, 100), random.randint(-100, 100)]          #x an y generated randomly
     point.append((abc[0]*point[0] + abc[1]*point[1] - d) / -abc[2])                     #z must fit the plain equasion 
     file.write("\n" + str(point[0]) + " " + str(point[1]) + " " + str(point[2])) 
