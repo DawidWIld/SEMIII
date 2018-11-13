@@ -6,12 +6,12 @@ namespace RSAGUI
     {
         public static BigInteger Encrypt(BigInteger data, BigInteger n, BigInteger e)
         {
-            return BigInteger.ModPow(data, e, n);
+            return BigInteger.ModPow(data, e, n);  //napisac recznie
         }
 
         public static BigInteger Decrypt(BigInteger data, BigInteger d, BigInteger n)
         {
-            return BigInteger.ModPow(data, d, n);
+            return BigInteger.ModPow(data, d, n);  //napisac recznie
         }
 
         public static string[] KeyGen(int size)
@@ -76,5 +76,4 @@ namespace RSAGUI
             return leftFactor % modulo;
         }
     }
-}
 }

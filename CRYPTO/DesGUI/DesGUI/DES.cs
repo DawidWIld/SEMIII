@@ -126,21 +126,22 @@ namespace DesGUI
             ulong output = 0;
             foreach (byte b in table)
             {
-                output = (output << 1) + ((input >> (64 - b)) & 1);
+                output = (output << 1) + ((input >> (64 - b)) & 1);     //switches bite sequence based on provided pc table
             }
             return output;
         }
 
-        static readonly byte[] shifts = { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
+        //shift table - shifts subkeys bites based on the number of shifts provided in the table 
+        static readonly byte[] shifts = { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };     
 
         static ulong[] GenSubKeys(ulong key)
         {
             uint[] c = new uint[17];
             uint[] d = new uint[17];
             ulong[] subkeys = new ulong[16];
-            key = Permutate(key, pc1); // 56bits number
-            d[0] = (uint)(key & 0xfffffff);
-            c[0] = (uint)((key >> 28) & 0xfffffff);
+            key = Permutate(key, pc1);                      // 56bits K+ number
+            d[0] = (uint)(key & 0xfffffff);                 // & - logical or
+            c[0] = (uint)((key >> 28) & 0xfffffff);         
 
             for (int i = 0; i < 16; i++)
             {
