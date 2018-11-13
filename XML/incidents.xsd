@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" 
+           xmlns:xs = "http://www.w3.org/2001/XMLSchema"
+           xmlns:inc = "http://project/incidents.xsd">
+ 
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="authors" />
+        <xs:element ref="companies" />
+        <xs:element ref="incidents" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="authors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" name="author">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="firstName" type="xs:string" />
+              <xs:element name="lastName" type="xs:string" />
+              <xs:element name="indexNumber" type="xs:nonNegativeInteger" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="companies">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="company">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID" use="required" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element> 
+
+  <xs:element name="incidents">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="incident" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="incident">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="incidentID" type="xs:string" />
+        <xs:element name="endUser" type="xs:string" />
+        <xs:element name="dateOpened" type="xs:date" />
+        <xs:element name="affectedUsers" type="xs:string" />
+        <xs:element name="state" type="xs:string" />
+        <xs:element name="category">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="mainCategory" type="xs:string" />
+              <xs:element name="subcategory" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="priority">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="impact">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Low" />
+                    <xs:enumeration value="Medium" />
+                    <xs:enumeration value="High" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="urgency">
+                <xs:simpleType>
+                  <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0" />
+                    <xs:maxInclusive value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="assignmentGroup" type="xs:string" />
+        <xs:element ref="phoneNumber" />
+        <xs:element name="userCompany">
+          <xs:complexType>
+            <xs:attribute name="comid" type="xs:IDREF" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="shortDescription" type="xs:string" />
+        <xs:element name="description" type="xs:string" />
+        <xs:element ref="workNotes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="phoneNumber">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="cc" type="xs:language" use="required" />
+          <xs:attribute name="mobile" type="xs:boolean" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="workNotes">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="vis" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:NMTOKEN">
+                <xs:enumeration value="agentOnly" />
+                <xs:enumeration value="all" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>
