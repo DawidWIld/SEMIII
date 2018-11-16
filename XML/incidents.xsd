@@ -2,7 +2,14 @@
 <xs:schema elementFormDefault="qualified" 
            xmlns:xs = "http://www.w3.org/2001/XMLSchema"
            xmlns:inc = "http://project/incidents.xsd">
- 
+
+  <xs:simpleType name="phoneNumberType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="18" />
+      <xs:pattern value="^\+?[0-9 ]+$" />
+    </xs:restriction>
+  </xs:simpleType>
+  
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
@@ -110,7 +117,7 @@
   <xs:element name="phoneNumber">
     <xs:complexType>
       <xs:simpleContent>
-        <xs:extension base="xs:string">
+        <xs:extension base="phoneNumberType">
           <xs:attribute name="cc" type="xs:language" use="required" />
           <xs:attribute name="mobile" type="xs:boolean" use="required" />
         </xs:extension>
