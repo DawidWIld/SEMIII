@@ -6,7 +6,7 @@
   <xs:simpleType name="phoneNumberType">
     <xs:restriction base="xs:string">
       <xs:maxLength value="18" />
-      <xs:pattern value="^\+?[0-9 ]+$" />
+      <xs:pattern value="\+?[0-9]+" />
     </xs:restriction>
   </xs:simpleType>
   
