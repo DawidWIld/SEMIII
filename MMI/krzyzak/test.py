@@ -17,9 +17,12 @@ for file in os.listdir("./krz/in/"):
     x = result.stdout.decode("ASCII").strip() == result_from_file.strip()
     if x:
         p += 1
+        x = "\033[92m" + "OK" + "\033[0m"
+    else:
+        x = "\033[91m" + "BAD" + "\033[0m"
 
     print(name[0] + ": " + str(x))
 
-print("n: " + str(n-p))
-print("p: " + str(p))
+print("failed: " + str(n-p))
+print("passed: " + str(p))
     
