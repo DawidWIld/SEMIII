@@ -1,7 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" 
            xmlns:xs = "http://www.w3.org/2001/XMLSchema"
-           xmlns:inc = "http://project/incidents.xsd">
+           xmlns:aut ="http://project/authors.xsd"
+           xmlns:comp ="http://project/companies.xsd"
+           xmlns = "http://project/incidents.xsd"
+           targetNamespace="http://project/incidents.xsd">
+
+  <xs:import namespace="http://project/companies.xsd"
+           schemaLocation="companies.xsd"/>
+
+  <xs:import namespace="http://project/authors.xsd"
+         schemaLocation="authors.xsd"/>
 
   <xs:simpleType name="phoneNumberType">
     <xs:restriction base="xs:string">
@@ -13,45 +22,12 @@
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="authors" />
-        <xs:element ref="companies" />
+        <xs:element ref="aut:authors" />
+        <xs:element ref="comp:companies" />
         <xs:element ref="incidents" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-
-  <xs:element name="authors">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="1" maxOccurs="unbounded" name="author">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="firstName" type="xs:string" />
-              <xs:element name="lastName" type="xs:string" />
-              <xs:element name="indexNumber" type="xs:nonNegativeInteger" />
-            </xs:sequence>
-            <xs:attribute name="id" type="xs:string" use="required" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="companies">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" name="company">
-          <xs:complexType>
-            <xs:simpleContent>
-              <xs:extension base="xs:string">
-                <xs:attribute name="id" type="xs:ID" use="required" />
-              </xs:extension>
-            </xs:simpleContent>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element> 
 
   <xs:element name="incidents">
     <xs:complexType>
