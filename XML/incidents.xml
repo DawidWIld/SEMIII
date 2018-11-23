@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root xmlns="http://project/incidents.xsd">
+<root xmlns="http://project/incidents.xsd"
+      xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+      xsi:schemaLocation='http://project/companies.xsd companies.xsd
+      http://project/incidents.xsd incidents.xsd
+      http://project/authors.xsd authors.xsd'>
 
   <aut:authors xmlns:aut="http://project/authors.xsd">
     <aut:author id="A1">
