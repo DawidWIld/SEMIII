@@ -28,8 +28,27 @@ namespace RSAGUI
                 textBoxN.Text = keys[0];
                 textBoxE.Text = keys[1];
                 textBoxD.Text = keys[2];
+
+                try
+                {
+                    BigInteger a = new BigInteger("1234567890");
+                    BigInteger enc = RSA.Encrypt(a, BigInteger.Parse(keys[0]), BigInteger.Parse(keys[1]));
+                    BigInteger dec = RSA.Decrypt(enc, BigInteger.Parse(keys[2]), BigInteger.Parse(keys[0]));
+                    if (a != dec)
+                    {
+                        MessageBox.Show("Bad1");
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Bad2");
+                }
+
             }
             sw.Stop();
+
+
+
             MessageBox.Show("Keys generated in " + sw.ElapsedMilliseconds + "ms");
         }
 
@@ -49,7 +68,8 @@ namespace RSAGUI
                 MessageBox.Show("Message and public key cannot be empty!");
                 return;
             }
-            BigInteger input = new BigInteger(Encoding.UTF8.GetBytes(textBoxMsg.Text));
+
+            BigInteger input = new BigInteger(Encoding.UTF8.GetBytes(textBoxMsg.Text + "\x01"));
             BigInteger n = BigInteger.Parse(textBoxN.Text);
             BigInteger ee = BigInteger.Parse(textBoxE.Text);
 
@@ -72,7 +92,12 @@ namespace RSAGUI
 
             BigInteger outp = RSA.Decrypt(input, d, n);
 
-            textBoxMsg.Text = Encoding.UTF8.GetString(outp.ToByteArray());
+            byte[] outpb = outp.ToByteArray();
+
+            for (int i = outpb.Length - 1; outpb[i] == 0; i--)
+                Array.Resize(ref outpb, outpb.Length - 1);
+
+            textBoxMsg.Text = Encoding.UTF8.GetString(outp.ToByteArray()).Substring(0, outpb.Length - 1);
             textBoxCode.Text = "";
         }
 
@@ -82,12 +107,12 @@ namespace RSAGUI
             {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    byte[] input = Encoding.ASCII.GetBytes(Convert.ToBase64String(File.ReadAllBytes(openFileDialog.FileName)));
+                    byte[] input = File.ReadAllBytes(openFileDialog.FileName);
                     string output = "";
 
-                    for (int i = 0; i < input.Length; i += 255)
+                    for (int i = 0; i < input.Length; i += 254)
                     {
-                        byte[] data = input.Skip(i).Take(255).Concat(new byte[] { 0 }).ToArray();
+                        byte[] data = input.Skip(i).Take(254).Concat(new byte[] { 1 }).ToArray();      
 
                         BigInteger n = BigInteger.Parse(textBoxN.Text);
                         BigInteger ee = BigInteger.Parse(textBoxE.Text);
@@ -119,12 +144,25 @@ namespace RSAGUI
 
                         BigInteger outp = RSA.Decrypt(new BigInteger(data), d, n);
 
-                        output.AddRange(outp.ToByteArray());
+                        byte[] outpb = outp.ToByteArray();
+
+                        for (int i = outpb.Length - 1; outpb[i] == 0; i--)
+                            Array.Resize(ref outpb, outpb.Length - 1);
+
+                        Array.Resize(ref outpb, outpb.Length - 1);
+
+                        output.AddRange(outpb);
                     }
-                    
-                    File.WriteAllBytes(saveFileDialog.FileName, Convert.FromBase64String(Encoding.ASCII.GetString(output.ToArray())));
+
+                    File.WriteAllBytes(saveFileDialog.FileName, output.ToArray());
                 }
             }
+        }
+
+        private void poolTimer_Tick(object sender, EventArgs e)
+        {
+            int pool = ParallelPrime.GetPrimePoolSize();
+            labelPool.Text = "Pool: " + pool.ToString();
         }
     }
 }

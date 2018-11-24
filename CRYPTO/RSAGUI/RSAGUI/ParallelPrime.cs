@@ -11,7 +11,7 @@ namespace RSAGUI
     {
         public static int Size;
 
-        static List<Thread> generators;
+        static List<Thread> generators = new List<Thread>();
         static Stack<BigInteger> primes = new Stack<BigInteger>();
         static readonly object mutex = 1;
 
@@ -49,7 +49,7 @@ namespace RSAGUI
         {
             generators = new List<Thread>();
 
-            int threads = Math.Max(Environment.ProcessorCount - 1, 1);
+            int threads = Math.Max(Environment.ProcessorCount - 2, 1);
 
             for (int i = 0; i < threads; i++)
             {
@@ -75,14 +75,22 @@ namespace RSAGUI
                 }
         }
 
+        public static int GetPrimePoolSize()
+        {
+            lock (mutex)
+            {
+                return primes.Count;
+            }
+        }
+
         public static bool RabinMiller(BigInteger n, int k, int size)
         {
             BigInteger s = 0;
             BigInteger r = n - 1;
             while ((r & 1) == 0)
             {
-                s++;
-                r /= 2;
+                s = s + 1;
+                r = r >> 1; //r /= 2;
             }
             for (int i = 0; i < k; i++)
             {
@@ -90,13 +98,14 @@ namespace RSAGUI
                 while (a < 2 || a >= n - 2)
                     a = randBig(size);
 
-                BigInteger x = BigInteger.ModPow(a, r, n);
+                BigInteger x = Big.ModPow(a, r, n);
+
 
                 if (x != 1 && x != n - 1)
                 {
-                    for (int j = 1; j < s; j++)
+                    for (uint j = 1; j < s; j++)
                     {
-                        x = BigInteger.ModPow(x, 2, n);
+                       x = Big.ModPow(x, 2, n);
                         if (x == 1)
                             return false;
                         if (x == n - 1)
@@ -111,7 +120,7 @@ namespace RSAGUI
             return true;
         }
 
-        static int[] primes2000 = {
+        static uint[] primes2000 = {
             2,3,5,7,11,13,17,19,23,29,
             31,37,41,43,47,53,59,61,67,71,
             73,79,83,89,97,101,103,107,109,113,
@@ -151,7 +160,7 @@ namespace RSAGUI
             if (n <= 1 || n % 2 == 0)
                 return false;
 
-            foreach (int p in primes2000)
+            foreach (uint p in primes2000)
                 if (n % p == 0)
                     return false;
 
@@ -160,12 +169,13 @@ namespace RSAGUI
 
         static BigInteger randBig(int length)
         {
-            byte[] data = new byte[length / 8 + 1];
+            byte[] data = new byte[length / 8];
 
             RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
             random.GetNonZeroBytes(data);
         
-            data[data.Length - 1] = 0;
+            //data[data.Length - 1] = 0;
+
             BigInteger big = new BigInteger(data);
             return big;
         }
@@ -173,7 +183,10 @@ namespace RSAGUI
         public static BigInteger RandomPrime(int size)
         {
             BigInteger p = randBig(size);
-            p |= (1 << size - 2) | 1;
+            //p |= (1 << size - 2) | 1;
+            p |= (new BigInteger(1) << size - 1) | 1;
+            //p.data[p.length - 1] |= (1U << 32 - 1);
+            //p.data[0] |= 1;
 
             while (!IsPrime(p, size))
                 p += 2;

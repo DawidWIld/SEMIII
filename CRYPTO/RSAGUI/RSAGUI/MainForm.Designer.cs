@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonKeyGen = new System.Windows.Forms.Button();
             this.textBoxN = new System.Windows.Forms.TextBox();
@@ -46,11 +47,13 @@
             this.buttonDecryptFile = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.labelPool = new System.Windows.Forms.Label();
+            this.poolTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // buttonKeyGen
             // 
-            this.buttonKeyGen.Location = new System.Drawing.Point(561, 9);
+            this.buttonKeyGen.Location = new System.Drawing.Point(561, 14);
             this.buttonKeyGen.Name = "buttonKeyGen";
             this.buttonKeyGen.Size = new System.Drawing.Size(75, 45);
             this.buttonKeyGen.TabIndex = 0;
@@ -187,11 +190,27 @@
             this.buttonDecryptFile.UseVisualStyleBackColor = true;
             this.buttonDecryptFile.Click += new System.EventHandler(this.buttonDecryptFile_Click);
             // 
+            // labelPool
+            // 
+            this.labelPool.AutoSize = true;
+            this.labelPool.Location = new System.Drawing.Point(561, 62);
+            this.labelPool.Name = "labelPool";
+            this.labelPool.Size = new System.Drawing.Size(40, 13);
+            this.labelPool.TabIndex = 18;
+            this.labelPool.Text = "Pool: 0";
+            // 
+            // poolTimer
+            // 
+            this.poolTimer.Enabled = true;
+            this.poolTimer.Interval = 500;
+            this.poolTimer.Tick += new System.EventHandler(this.poolTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(651, 522);
+            this.Controls.Add(this.labelPool);
             this.Controls.Add(this.buttonDecryptFile);
             this.Controls.Add(this.buttonEncryptFile);
             this.Controls.Add(this.label5);
@@ -235,6 +254,8 @@
         private System.Windows.Forms.Button buttonDecryptFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Label labelPool;
+        private System.Windows.Forms.Timer poolTimer;
     }
 }
 
