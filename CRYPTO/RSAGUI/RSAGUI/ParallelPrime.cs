@@ -173,8 +173,6 @@ namespace RSAGUI
 
             RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
             random.GetNonZeroBytes(data);
-        
-            //data[data.Length - 1] = 0;
 
             BigInteger big = new BigInteger(data);
             return big;
@@ -183,10 +181,7 @@ namespace RSAGUI
         public static BigInteger RandomPrime(int size)
         {
             BigInteger p = randBig(size);
-            //p |= (1 << size - 2) | 1;
             p |= (new BigInteger(1) << size - 1) | 1;
-            //p.data[p.length - 1] |= (1U << 32 - 1);
-            //p.data[0] |= 1;
 
             while (!IsPrime(p, size))
                 p += 2;
