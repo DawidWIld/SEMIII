@@ -46,13 +46,13 @@ for i in range(50):
     b = json.loads(open("fft_tests/test_"+str(i*2+1), "r").read());
     padding(a, b)
 
-    start_time = time.perf_counter_ns()
+    start_time = time.perf_counter()
     muls = slowmul(a,b)
-    time_s =  time.perf_counter_ns() - start_time
+    time_s =  time.perf_counter() - start_time
 
-    start_time = time.perf_counter_ns()
+    start_time = time.perf_counter()
     mulf = fftmul(a,b)
-    time_f = time.perf_counter_ns() - start_time
+    time_f = time.perf_counter() - start_time
 
     result_slow = calc(muls, 1/cmath.sqrt(2) + 1j/cmath.sqrt(2));
     result_fast = calc(muls, 1/cmath.sqrt(2) + 1j/cmath.sqrt(2));
@@ -62,6 +62,6 @@ for i in range(50):
         print("\033[92m" + "OK" + "\033[0m", end="")
     else:
         print("\033[91m" + "BAD" + "\033[0m", end="")
-    print("    SLOW: " + '{:.2f}'.format(time_s/1000000) + "ms\t FFT: " + '{:.2f}'.format(time_f/1000000) + "ms " + '({:.2f}'.format(time_f/time_s * 100) + "%)");
+    print("    SLOW: " + '{:.2f}'.format(time_s*10) + "s\t FFT: " + '{:.2f}'.format(time_f*10) + "s " + '({:.2f}'.format(time_f/time_s * 100) + "%)");
 
     sys.stdout.flush()
