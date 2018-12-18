@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="inc_raport.xsl" type="text/xsl" ?>
 
-<root xmlns="http://project/incidents.xsd"
-      xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-      xsi:schemaLocation='http://project/companies.xsd companies.xsd
-      http://project/incidents.xsd incidents.xsd
-      http://project/authors.xsd authors.xsd'>
+<root>
 
-  <aut:authors xmlns:aut="http://project/authors.xsd">
-    <aut:author id="A1">
-      <aut:firstName>Mateusz</aut:firstName>
-      <aut:lastName>Muszyński</aut:lastName>
-      <aut:indexNumber>217120</aut:indexNumber>
-    </aut:author>
-    <aut:author id="A2">
-      <aut:firstName>Dawid</aut:firstName>
-      <aut:lastName>Dziki</aut:lastName>
-      <aut:indexNumber>217088</aut:indexNumber>
-    </aut:author>
-  </aut:authors>
+  <authors>
+    <author id="A1">
+      <firstName>Mateusz</firstName>
+      <lastName>Muszyński</lastName>
+      <indexNumber>217120</indexNumber>
+    </author>
+    <author id="A2">
+      <firstName>Dawid</firstName>
+      <lastName>Dziki</lastName>
+      <indexNumber>217088</indexNumber>
+    </author>
+  </authors>
 
-  <comp:companies xmlns:comp="http://project/companies.xsd">
-    <comp:company id="DDMT00001">Nazwa firmy</comp:company>
-    <comp:company id="DDMT00002">Nazwa firmy 2</comp:company>
-  </comp:companies>
+  <companies>
+    <company id="DDMT00001">Nazwa firmy</company>
+    <company id="DDMT00002">Nazwa firmy 2</company>
+  </companies>
 
   <incidents>
     <incident>
