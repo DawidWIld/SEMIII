@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"
-                              xmlns:lu="http://example.com/lookup">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"
+                              xmlns:lu="http://example.com/lookup" xmlns:f="http://example.com/functions" >
 
   <xsl:output method="xml" encoding="utf-8" indent="yes"/>
 
   <xsl:key name="companyById" match="company" use="@id"/>
+  <xsl:key name="incidentByCategory" match="incident" use="category/mainCategory" />
 
-  <xsl:variable name='matcher-node' select='document("")/xsl:stylesheet/lu:matcher/priorities'/>
+  <xsl:variable name='matcher-node' select="document('')/xsl:stylesheet/lu:matcher/lu:priorities"/>
 
   <xsl:template match="/root">
     <root>
       <xsl:apply-templates select="incidents"/>
       <stats>
         <numberOfIncidents>
-          <xsl:value-of select="count(/root/incidents/*)"/>
+          <xsl:value-of select="count(/root/incidents/incident)"/>
         </numberOfIncidents>
-        <!--<reportDate>
-          <xsl:value-of  select="current-dateTime()"/>
-        </reportDate>-->
-        <mostCategory>
-        </mostCategory>
+        <mostCommonCategory>
+          <xsl:for-each select="/root/incidents/incident/category/mainCategory">
+            <xsl:sort select="count(key('incidentByCategory', .))" data-type="number" order="descending" />
+            <xsl:if test="position() = 1">
+              <xsl:value-of select="." />
+            </xsl:if>
+          </xsl:for-each>       
+        </mostCommonCategory>
+        <reportDate>
+          <xsl:value-of  select="f:currentDateTime()"/>
+        </reportDate>
       </stats>
     </root>
   </xsl:template>
@@ -60,14 +67,7 @@
         </subcategory>
       </category>
       <priority>
-        <xsl:value-of select="$matcher-node[@impact=$curr_impact]/@urgency"/>
-        <!--<impact>
-          <xsl:value-of select="priority/impact" />
-        </impact>
-        <urgency>
-          <xsl:value-of select="$matcher-node[@impact=$curr_impact]/@urgency"/>
-          --><!--<xsl:value-of select="$curr_impact"/>--><!--
-        </urgency>-->
+        <xsl:value-of select="$matcher-node[@impact=$curr_impact and @urgency=$curr_urgency]/@priority"/>
       </priority>
       <assignmentGroup>
         <xsl:value-of select="assignmentGroup" />
@@ -79,7 +79,7 @@
         <xsl:value-of select="key('companyById', userCompany/@comid)" />
       </userCompany>
       <shortDescription>
-        <xsl:value-of select="shortDescription" />
+       <xsl:value-of select="shortDescription" />
       </shortDescription>
       <description>
         <xsl:value-of select="description" />
@@ -90,28 +90,21 @@
     </incident>
   </xsl:template>
 
-  <!--<xsl:template match="convert">
-    <xsl:choose>
-      <xsl:when test="priority/impact = Low and priority/urgency = 1 "
-    </xsl:choose>
-  
-  </xsl:template>-->
-
   <lu:matcher>
-    <priorities impact="Low" urgency="1" priority="P3"/>
-    <!--<priorities impact="Low" urgency="2" priority="P3"/>
-    <priorities impact="Low" urgency="3" priority="P4"/>
-    <priorities impact="Low" urgency="4" priority="P4"/>-->
-    
-    <priorities impact="Medium" urgency="1" priority="P1"/>
-    <!--<priorities impact="Medium" urgency="2" priority="P2"/>
-    <priorities impact="Medium" urgency="3" priority="P3"/>
-    <priorities impact="Medium" urgency="4" priority="P4"/>-->
+    <lu:priorities impact="Low" urgency="1" priority="P3"/>
+    <lu:priorities impact="Low" urgency="2" priority="P3"/>
+    <lu:priorities impact="Low" urgency="3" priority="P4"/>
+    <lu:priorities impact="Low" urgency="4" priority="P4"/>
 
-    <priorities impact="High" urgency="1" priority="P1"/>
-    <!--<priorities impact="High" urgency="2" priority="P1"/>
-    <priorities impact="High" urgency="3" priority="P2"/>
-    <priorities impact="High" urgency="4" priority="P3"/>-->
+    <lu:priorities impact="Medium" urgency="1" priority="P1"/>
+    <lu:priorities impact="Medium" urgency="2" priority="P2"/>
+    <lu:priorities impact="Medium" urgency="3" priority="P3"/>
+    <lu:priorities impact="Medium" urgency="4" priority="P4"/>
+
+    <lu:priorities impact="High" urgency="1" priority="P1"/>
+    <lu:priorities impact="High" urgency="2" priority="P1"/>
+    <lu:priorities impact="High" urgency="3" priority="P2"/>
+    <lu:priorities impact="High" urgency="4" priority="P3"/>
   </lu:matcher>
 
 </xsl:stylesheet>
