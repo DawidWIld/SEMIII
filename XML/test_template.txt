@@ -1,0 +1,25 @@
+*******************************************************************************
+*                               STATISTICS:                                   *
+* Number of incidents: 30                                                     *
+* Most common category: Software                                              *
+* Report generation date: 2018-12-20 00:07:58.164921                          *
+*******************************************************************************
+
++======================+===========================+==========================+
+|     ID: INC000006    |   User: Jazmyn Buchanan   |    Date: 2018-10-06      |
++======================+===========================+==========================+
+| State: Awaiting info |    Category: Identity Management/Account Lockout     |
+*================+=====+=========================+============================+
+|    Priority: ####    |   Group: Service Desk   |   Phone: +48526815231(PL)  |
+*======================+=========================+============================+
+| Short: I have an issue with my Account Lockout                              |
+*=============================================================================+
+|                              Description:                                   |
+| Quisquam est tempora labore. Dolor sit dolorem numquam dolor est etincidunt |
+| quiquia. Sit ut etincidunt adipisci ipsum amet. Tempora tempora neque sed.  |
+| Magnam sed tempora neque numquam. Est magnam tempora tempora est. Magnam    |
+| sed velit dolore etincidunt quiquia voluptatem.                             |
++=============================================================================+
+| Notes: Etincidunt ut magnam eius eius.                                      |
+*=============================================================================+
+      

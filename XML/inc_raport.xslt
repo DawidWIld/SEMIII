@@ -11,7 +11,6 @@
 
   <xsl:template match="/root">
     <root>
-      <xsl:apply-templates select="incidents"/>
       <stats>
         <numberOfIncidents>
           <xsl:value-of select="count(/root/incidents/incident)"/>
@@ -22,12 +21,13 @@
             <xsl:if test="position() = 1">
               <xsl:value-of select="." />
             </xsl:if>
-          </xsl:for-each>       
+          </xsl:for-each>
         </mostCommonCategory>
         <reportDate>
           <xsl:value-of  select="f:currentDateTime()"/>
         </reportDate>
       </stats>
+      <xsl:apply-templates select="incidents"/>
     </root>
   </xsl:template>
 
@@ -79,7 +79,7 @@
         <xsl:value-of select="key('companyById', userCompany/@comid)" />
       </userCompany>
       <shortDescription>
-       <xsl:value-of select="shortDescription" />
+        <xsl:value-of select="shortDescription" />
       </shortDescription>
       <description>
         <xsl:value-of select="description" />
