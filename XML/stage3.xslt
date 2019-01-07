@@ -9,28 +9,30 @@
     <xsl:apply-templates select="incident"/>
   </xsl:template>
   <xsl:template match="stats">
+                                                           
 *******************************************************************************
 *                               STATISTICS:                                   *
-* Number of incidents: <xsl:value-of select="numberOfIncidents" />*
-* Most common category: <xsl:value-of select="mostCommonCategory" />*
-* Report generation date: <xsl:value-of select="reportDate" />*
+* Number of incidents: <xsl:value-of select="f:cut(numberOfIncidents, 55)" />*
+* Most common category: <xsl:value-of select="f:cut(mostCommonCategory, 54)" />*
+* Report generation date: <xsl:value-of select="f:cut(reportDate, 52)" />*
 *******************************************************************************
   </xsl:template>
   <xsl:template match="incident">
 +======================+===========================+==========================+
-| ID: <xsl:value-of select="substring(concat(incidentID, '                              '), 1, 16)" /> | User: <xsl:value-of select="endUser" /> | Date: <xsl:value-of select="dateOpened" /> |
+| ID: <xsl:value-of select="f:cut(incidentID, 18)" />| User: <xsl:value-of select="f:cut(endUser, 20)" />| Date: <xsl:value-of select="f:cut(dateOpened, 20)" />|
 +======================+===========================+==========================+
-| State: <xsl:value-of select="state" /> | Category: <xsl:value-of select="category/mainCategory" />/<xsl:value-of select="category/subcategory" /> |
-*================+=====+=========================+============================+
-| Priority: #### | Group: <xsl:value-of select="assignmentGroup" /> | Phone: <xsl:value-of select="phoneNumber" />(PL) |
-*======================+=========================+============================+
-| Short: <xsl:value-of select="shortDescription" /> |
-*=============================================================================+
-|                              Description:                                   |
-| <xsl:value-of select="description" /> |
+| State: <xsl:value-of select="f:cut(state,20)" />| Category: <xsl:value-of select="f:cut(category/mainCategory,20)" />/<xsl:value-of select="f:cut(category/subcategory,20)" />|
++======================+=========================+============================+
+| Priority: #### | Group: <xsl:value-of select="f:cut(assignmentGroup,20)" />| Phone: <xsl:value-of select="f:cut(phoneNumber,20)" />(PL)|
++======================+=========================+============================+
+| Short: <xsl:value-of select="f:cut(shortDescription,20)" />|
 +=============================================================================+
-| Notes: <xsl:value-of select="workNotes" /> |
-*=============================================================================+
+|                              Description:                                   |
+| <xsl:value-of select="f:cut(description,20)" />|
++=============================================================================+
+| Notes: <xsl:value-of select="f:cut(workNotes,20)" />|
++=============================================================================+
     
   </xsl:template>
 </xsl:stylesheet>
+
