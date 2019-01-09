@@ -19,18 +19,18 @@
   </xsl:template>
   <xsl:template match="incident">
 +======================+===========================+==========================+
-| ID: <xsl:value-of select="f:cut(incidentID, 18)" />| User: <xsl:value-of select="f:cut(endUser, 20)" />| Date: <xsl:value-of select="f:cut(dateOpened, 20)" />|
+| ID: <xsl:value-of select="f:cut(incidentID, 17)" />| User: <xsl:value-of select="f:cut(endUser, 20)" />| Date: <xsl:value-of select="f:cut(dateOpened, 19)" />|
 +======================+===========================+==========================+
-| State: <xsl:value-of select="f:cut(state,20)" />| Category: <xsl:value-of select="f:cut(category/mainCategory,20)" />/<xsl:value-of select="f:cut(category/subcategory,20)" />|
+| State: <xsl:value-of select="f:cut(state,14)" />| Category: <xsl:value-of select="f:cut(concat(category/mainCategory, '/', category/subcategory), 28+15)" />|
 +======================+=========================+============================+
-| Priority: #### | Group: <xsl:value-of select="f:cut(assignmentGroup,20)" />| Phone: <xsl:value-of select="f:cut(phoneNumber,20)" />(PL)|
+| Priority: <xsl:value-of select="f:cut(priority,10)" /> | Group: <xsl:value-of select="f:cut(assignmentGroup,17)" />| Phone: <xsl:value-of select="f:cut(concat(phoneNumber, '(PL)'),20)" />|
 +======================+=========================+============================+
-| Short: <xsl:value-of select="f:cut(shortDescription,20)" />|
+| Short: <xsl:value-of select="f:cut(shortDescription,69)" />|
 +=============================================================================+
 |                              Description:                                   |
-| <xsl:value-of select="f:cut(description,20)" />|
+| <xsl:value-of select="f:cut(description,76)" />|
 +=============================================================================+
-| Notes: <xsl:value-of select="f:cut(workNotes,20)" />|
+| Notes: <xsl:value-of select="f:cut(workNotes,69)" />|
 +=============================================================================+
     
   </xsl:template>
