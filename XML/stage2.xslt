@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"
-                              xmlns:lu="http://example.com/lookup" xmlns:f="http://example.com/functions" >
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml">
 
-  <xsl:output method="xml" encoding="utf-8" indent="yes"/>
-
-
+  <xsl:output method="xml" encoding="utf-8" indent="yes" omit-xml-declaration="yes"/>
 
   <xsl:template match="/root">
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~HEADER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+    <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  -->
+    <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</xsl:text>
     <html>
       <head>
         <title>INCIDENTS REPORT</title>
@@ -16,13 +14,25 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
       </head>
       <body class="bg-light">
-        <nav class="navbar navbar-expand flex-column flex-md-row bd-navbar shadow" style="background-color: #aab7b8">
-          <img class="rounded-circle mx-2 shadow" src="dziku.jpg" alt="Dawid Dziki 217088" width="72" height="72" />
-          <img class="rounded-circle mx-2 shadow" src="timus.png" alt="Mateusz Muszynski 217120" width="72" height="72" />
+        <div class="navbar navbar-expand flex-column flex-md-row bd-navbar shadow" style="background-color: #aab7b8">
+            <xsl:for-each select="authors/author">
+              <img class="rounded-circle mx-2 shadow" width="72" height="72">
+                <xsl:attribute name="src">
+                  <xsl:value-of select="@id"/>
+                  <xsl:text>.png</xsl:text>
+                </xsl:attribute>
+                <xsl:attribute name="alt">
+                  <xsl:value-of select="."/>
+                  <xsl:text> </xsl:text>
+                  <xsl:value-of select="@id"/>
+                </xsl:attribute>
+              </img>
+            </xsl:for-each>
+          
           <h2 class="mx-2">
             <b>Incidents Report</b>
           </h2>
-        </nav>
+        </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~HEADER END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
         <xsl:apply-templates select="stats"/>
@@ -158,4 +168,3 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~STATISTICS END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 </xsl:stylesheet>
-

@@ -24,6 +24,6 @@ def do_xslt(a, b, c):
     print(transform.error_log)
 
 
-#do_xslt("incidents.xml", "inc_raport.xslt", "output.xml") # stage 1
+do_xslt("incidents.xml", "inc_raport.xslt", "output.xml") # stage 1
 do_xslt("output.xml", "stage2.xslt", "output2.xhtml") # stage 2
 #do_xslt("output.xml", "stage3.xslt", "output3.xml") # stage 3

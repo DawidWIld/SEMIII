@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"
-                              xmlns:lu="http://example.com/lookup" xmlns:f="http://example.com/functions" >
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                              xmlns:lu="http://example.com/lookup"
+                              xmlns:f="http://example.com/functions" 
+                              exclude-result-prefixes="lu f">
 
-  <xsl:output method="xml" encoding="utf-8" indent="yes"/>
+  <xsl:output method="xml" encoding="utf-8" indent="yes" />
 
   <xsl:key name="companyById" match="company" use="@id"/>
   <xsl:key name="incidentByCategory" match="incident" use="category/mainCategory" />
@@ -11,6 +13,19 @@
 
   <xsl:template match="/root">
     <root>
+      <authors>
+        <xsl:for-each select="authors/author">
+          <author>
+            <xsl:attribute name="id">
+              <xsl:value-of select="indexNumber"/>
+            </xsl:attribute>
+            <xsl:value-of select="firstName" />
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="lastName" />
+          </author>
+        </xsl:for-each>
+        <xsl:apply-templates select="stats"/>
+      </authors>
       <stats>
         <numberOfIncidents>
           <xsl:value-of select="count(/root/incidents/incident)"/>
